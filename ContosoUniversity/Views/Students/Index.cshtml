@@ -1,0 +1,99 @@
+﻿@using ContosoUniversity.Utilities
+@* @model IEnumerable<ContosoUniversity.Models.Student> *@
+@model PaginatedList<ContosoUniversity.Models.Student>
+
+@{
+    ViewData["Title"] = "Students";
+}
+
+<h1>Students</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+
+<form asp-action="Index" method="get" class="row row-cols-lg-auto g-3 align-items-center">
+    <div col-12>
+        <input type="text" 
+               class="form-control"
+               name="searchString" 
+               value="@ViewData["CurrentFilter"]" 
+               placeholder="Type name to search ..." />
+    </div>
+    <div col-12>
+        <button type="submit" class="btn btn-primary">
+            <i class="fa-solid fa-search"></i>
+        </button>
+    </div>
+    @* When new search is submitted, sorting should not change *@
+    <input type="hidden" name="sortOrder" value="@ViewData["CurrentSort"]" />
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                <a asp-action="Index" 
+                   asp-route-sortOrder="@ViewData["NameSortParam"]"
+                   asp-route-currentFilter="@ViewData["CurrentFilter"]"
+                >
+                    @Html.DisplayNameFor(model => model[0].LastName)  <i class="fa-solid @ViewData["NameSortIcon"]"></i>
+                </a>
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model[0].FirstName)
+            </th>
+            <th>
+                <a asp-action="Index"
+                   asp-route-sortOrder="@ViewData["DateSortParam"]"
+                   asp-route-currentFilter="@ViewData["CurrentFilter"]"
+                >
+                    @Html.DisplayNameFor(model => model[0].EnrollmentDate) <i class="fa-solid @ViewData["DateSortIcon"]"></i>
+                </a>
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EnrollmentDate)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+
+@{
+    var prevDisabled = Model.HasPreviousPage ? "" : "disabled";
+    var nextDisabled = Model.HasNextPage ? "" : "disabled";
+}
+
+<a asp-action="Index"
+   asp-route-sortOrder="@ViewData["CurrentSort"]"
+   asp-route-currentFilter="@ViewData["CurrentFilter"]"
+   asp-route-pageNumber="@(Model.PageIndex - 1)"
+   class="btn btn-primary @prevDisabled"
+>
+     <i class="fa-solid fa-angle-left"></i> Previous
+</a>
+<a asp-action="Index"
+   asp-route-sortOrder="@ViewData["CurrentSort"]"
+   asp-route-currentFilter="@ViewData["CurrentFilter"]"
+   asp-route-pageNumber="@(Model.PageIndex + 1)"
+   class="btn btn-primary @nextDisabled"
+>
+    Next <i class="fa-solid fa-angle-right"></i>
+</a>

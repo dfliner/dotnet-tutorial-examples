@@ -1,0 +1,42 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" sizes="32x32" href="~/favicon-32x32.png" />
+    <link rel="icon" sizes="192x192" href="~/favicon-192x192.png" />
+    <link rel="apple-touch-icon" size="180x180" href="~/favicon-180x180.png" />
+
+    <title>@ViewData["Title"] - Contoso University</title>
+
+    <partial name="_Styles" />
+    @* if any individual page has own specific style sheets *@
+    @await RenderSectionAsync("Styles", required: false)
+</head>
+
+@* 
+    NOTE: The scoped CSS file _layout.cshtml.css only applies to tags in this file,
+          not the inserted partial views (_Header/_Footer).
+*@
+
+<body>
+    <header>
+        <partial name="_Header" />
+    </header>
+
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+     @*fixed-bottom mt-auto py-3*@
+    <footer class="border-top footer text-muted bg-info text-center">
+        <partial name="_Footer" />
+    </footer>
+
+    <partial name="_Scripts" />
+    @* scripts injected in individual pages *@
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

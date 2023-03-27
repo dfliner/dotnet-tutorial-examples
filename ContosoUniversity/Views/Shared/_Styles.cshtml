@@ -1,0 +1,26 @@
+﻿<environment include="Development,Test">
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="~/lib/font-awesome/css/all.css" />
+</environment>
+
+<environment exclude="Development,Test">
+    <link rel="stylesheet" 
+          href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.0/css/bootstrap.min.css" 
+          crossorigin="anonymous" 
+          asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
+          asp-fallback-test-class="sr-only" 
+          asp-fallback-test-property="position" 
+          asp-fallback-test-value="absolute"
+          asp-suppress-fallback-integrity="true"/>
+    <link rel="stylesheet" 
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" 
+          crossorigin="anonymous" 
+          asp-fallback-href="~/lib/font-awesome/css/all.min.css"
+          asp-fallback-test-class="fab"
+          asp-fallback-test-property="font-style"
+          asp-fallback-test-value="normal"
+          asp-suppress-fallback-integrity="true" />
+</environment>
+
+<link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+<link rel="stylesheet" href="~/ContosoUniversity.styles.css" asp-append-version="true" />
