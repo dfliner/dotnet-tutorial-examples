@@ -5,7 +5,16 @@ VisualStudioVersion = 17.2.32519.379
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WpfAppDI", "WpfAppDI\WpfAppDI.csproj", "{FDA78D86-2A9C-4B39-A0D4-90AF198CA638}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleAppDI", "ConsoleAppDI\ConsoleAppDI.csproj", "{224DA34B-0573-4135-B5F4-47E2EA728AE0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleAppDI", "ConsoleAppDI\ConsoleAppDI.csproj", "{224DA34B-0573-4135-B5F4-47E2EA728AE0}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WestPacificUniversity", "WestPacificUniversity\WestPacificUniversity.csproj", "{B53C56A4-3094-47DD-A844-F9AC7F9160E1}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Misc", "Misc", "{FB550083-AC41-4797-AB03-CBB9081AB646}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+		.gitattributes = .gitattributes
+		.gitignore = .gitignore
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +30,10 @@ Global
 		{224DA34B-0573-4135-B5F4-47E2EA728AE0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{224DA34B-0573-4135-B5F4-47E2EA728AE0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{224DA34B-0573-4135-B5F4-47E2EA728AE0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B53C56A4-3094-47DD-A844-F9AC7F9160E1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B53C56A4-3094-47DD-A844-F9AC7F9160E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B53C56A4-3094-47DD-A844-F9AC7F9160E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B53C56A4-3094-47DD-A844-F9AC7F9160E1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
