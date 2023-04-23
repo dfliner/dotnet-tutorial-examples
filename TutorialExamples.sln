@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WpfAppDI", "WpfAppDI\WpfApp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleAppDI", "ConsoleAppDI\ConsoleAppDI.csproj", "{224DA34B-0573-4135-B5F4-47E2EA728AE0}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ContosoUniversity", "ContosoUniversity\ContosoUniversity.csproj", "{B53C56A4-3094-47DD-A844-F9AC7F9160E1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WestPacificUniversity", "WestPacificUniversity\WestPacificUniversity.csproj", "{B53C56A4-3094-47DD-A844-F9AC7F9160E1}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Misc", "Misc", "{FB550083-AC41-4797-AB03-CBB9081AB646}"
 	ProjectSection(SolutionItems) = preProject
