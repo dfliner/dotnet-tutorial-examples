@@ -4,17 +4,21 @@ using ContosoUniversity.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// DbContext is registered to DI container as a scoped service (aligned with HTTP request lifttime)
+// DbContext is registered to DI container as a scoped service (aligned with HTTP request lifetime)
 builder.Services.AddDbContext<ContosoUniversityContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("ContosoUniversityContext") 
+    options.UseSqlServer(
+        builder.Configuration.GetConnectionString("ContosoUniversityContext") 
         ?? throw new InvalidOperationException("Connection string 'ContosoUniversityContext' not found.")
-));
+    ));
 
-builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+if (builder.Environment.IsDevelopment())
+{
+    builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+}
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-    //.AddRazorRuntimeCompilation(); // runtime optimization breaks "scoped CSS isolation" introduced in .NET6.0
+    //.AddRazorRuntimeCompilation(); // Runtime optimization breaks "scoped CSS isolation" introduced in .NET6.0
 
 var app = builder.Build();
 

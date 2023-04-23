@@ -1,4 +1,8 @@
-﻿<!DOCTYPE html>
+﻿@*
+  https://learn.microsoft.com/en-us/aspnet/core/mvc/views/layout?view=aspnetcore-7.0
+*@
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -10,11 +14,11 @@
     <title>@ViewData["Title"] - Contoso University</title>
 
     <partial name="_Styles" />
-    @* if any individual page has own specific style sheets *@
+    @* If any individual page has own specific style sheets *@
     @await RenderSectionAsync("Styles", required: false)
 </head>
 
-@* 
+@*
     NOTE: The scoped CSS file _layout.cshtml.css only applies to tags in this file,
           not the inserted partial views (_Header/_Footer).
 *@
@@ -36,7 +40,7 @@
     </footer>
 
     <partial name="_Scripts" />
-    @* scripts injected in individual pages *@
+    @* Scripts injected in individual pages *@
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
