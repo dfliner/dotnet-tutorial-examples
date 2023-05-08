@@ -7,7 +7,7 @@ var builder = WebApplication.CreateBuilder(args);
 // DbContext is registered to DI container as a scoped service (aligned with HTTP request lifetime)
 builder.Services.AddDbContext<WestPacificUniversityContext>(options =>
     options.UseSqlServer(
-        builder.Configuration.GetConnectionString("WestPacificUniversityContext") 
+        builder.Configuration.GetConnectionString("WestPacificUniversityContext")
         ?? throw new InvalidOperationException("Connection string 'WestPacificUniversityContext' not found.")
     ));
 
