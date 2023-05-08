@@ -7,7 +7,7 @@ var builder = WebApplication.CreateBuilder(args);
 // DbContext is registered to DI container as a scoped service (aligned with HTTP request lifetime)
 builder.Services.AddDbContext<WestPacificUniversityContext>(options =>
     options.UseSqlServer(
-        builder.Configuration.GetConnectionString("WestPacificUniversityContext") 
+        builder.Configuration.GetConnectionString("WestPacificUniversityContext")
         ?? throw new InvalidOperationException("Connection string 'WestPacificUniversityContext' not found.")
     ));
 
@@ -40,15 +40,17 @@ using (var scope = app.Services.CreateScope())
 }
 
 // Configure the HTTP request pipeline.
-if (!app.Environment.IsDevelopment())
+
+if (app.Environment.IsDevelopment())
 {
-    app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-    app.UseHsts();
+    app.UseDeveloperExceptionPage();
 }
 else
 {
-    app.UseDeveloperExceptionPage();
+    app.UseExceptionHandler("/Home/Error");
+    // The default HSTS value is 30 days. You may want to change this for production scenarios,
+    // see https://aka.ms/aspnetcore-hsts.
+    app.UseHsts();
 }
 
 app.UseHttpsRedirection();
