@@ -26,7 +26,7 @@ public class Student
 
 
     [Display(Name = "Enrollment Date")]
-    [DataType(DataType.Date)]
+    [DataType(DataType.Date)] // Does not impact data type in database. 
     public DateTime EnrollmentDate { get; set; }
 
     [Display(Name = "Full Name")]
