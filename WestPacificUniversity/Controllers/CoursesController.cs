@@ -4,6 +4,7 @@ using WestPacificUniversity.Utilities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using WestPacificUniversity.Data.Entities;
 
 namespace WestPacificUniversity.Controllers;
 

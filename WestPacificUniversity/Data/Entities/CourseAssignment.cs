@@ -1,4 +1,4 @@
-﻿namespace WestPacificUniversity.Models;
+﻿namespace WestPacificUniversity.Data.Entities;
 
 public class CourseAssignment
 {

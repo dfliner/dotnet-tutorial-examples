@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace WestPacificUniversity.Models;
+namespace WestPacificUniversity.Data.Entities;
 
 /// <summary>
 /// In real-world app, this should be an entity class, not directly used outside the data layer.

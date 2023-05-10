@@ -1,4 +1,6 @@
-﻿namespace WestPacificUniversity.Models;
+﻿using WestPacificUniversity.Data.Entities;
+
+namespace WestPacificUniversity.Models;
 
 public class ListOfInstructorsViewModel
 {

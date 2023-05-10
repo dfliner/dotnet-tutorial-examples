@@ -1,4 +1,6 @@
-﻿namespace WestPacificUniversity.Models;
+﻿using WestPacificUniversity.Data.Entities;
+
+namespace WestPacificUniversity.Models;
 
 /// <summary>
 /// DTO class for creating/editing <see cref="Student"/> entity.

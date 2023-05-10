@@ -1,5 +1,6 @@
 ﻿using WestPacificUniversity.Utilities;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using WestPacificUniversity.Data.Entities;
 
 namespace WestPacificUniversity.Models;
 

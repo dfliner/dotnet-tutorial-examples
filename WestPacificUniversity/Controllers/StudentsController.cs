@@ -3,6 +3,7 @@ using WestPacificUniversity.Models;
 using WestPacificUniversity.Utilities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using WestPacificUniversity.Data.Entities;
 
 namespace WestPacificUniversity.Controllers;
 

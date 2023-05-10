@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace WestPacificUniversity.Models;
+namespace WestPacificUniversity.Data.Entities;
 
 [Table("Courses")]
 public class Course

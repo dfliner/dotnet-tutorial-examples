@@ -1,4 +1,4 @@
-﻿using WestPacificUniversity.Models;
+﻿using WestPacificUniversity.Data.Entities;
 
 namespace WestPacificUniversity.Data;
 
