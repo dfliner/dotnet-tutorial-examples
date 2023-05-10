@@ -7,13 +7,11 @@ public class Instructor
     public int Id { get; set; }
 
     [Display(Name = "Last Name")]
-    [Required]
-    [StringLength(50)]
+    [Required, StringLength(50)]
     public string LastName { get; set; } = default!;
 
     [Display(Name = "First Name")]
-    [Required]
-    [StringLength(50)]
+    [Required, StringLength(50)]
     public string FirstName { get; set; } = default!;
 
     [Display(Name = "Hire Date")]

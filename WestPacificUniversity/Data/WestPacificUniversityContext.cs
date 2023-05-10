@@ -1,5 +1,5 @@
-﻿using WestPacificUniversity.Models;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
+using WestPacificUniversity.Models;
 
 namespace WestPacificUniversity.Data;
 
