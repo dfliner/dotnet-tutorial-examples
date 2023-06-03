@@ -14,7 +14,7 @@ namespace WestPacificUniversity.Data.Entities;
 [Table("Students")]
 public class Student
 {
-    public int Id { get; set; } // StudentId
+    public int Id { get; set; } // StudentId - primary key naming convention
 
     [Display(Name = "Last Name")]
     [Required, MaxLength(50)]// maps to column data type nvarchar(50)
@@ -22,7 +22,7 @@ public class Student
 
     [Display(Name = "First Name")]
     [RegularExpression(@"^[A-Z]+[a-zA-Z]*$")] // validation rule
-    [Required, StringLength(50, MinimumLength = 3)] // MinLength has no effect on database schema
+    [Required, StringLength(50, MinimumLength = 2)] // MinLength has no effect on database schema
     public string FirstName { get; set; } = default!;
 
     [Display(Name = "Enrollment Date")]
@@ -35,5 +35,8 @@ public class Student
     /// <summary>
     /// Student may enroll in multiple courses, and vice versa.
     /// </summary>
+    /// <remarks>
+    /// <see cref="Enrollment"/> builds the many-to-many relationship between <see cref="Student"/> and <see cref="Course"/>.
+    /// </remarks>
     public ICollection<Enrollment>? Enrollments { get; set; }
 }

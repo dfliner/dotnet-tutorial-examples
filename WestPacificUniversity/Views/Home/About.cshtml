@@ -6,20 +6,24 @@
 
 <h2>West Pacific University Student Enrollment Stats:</h2>
 
-<table class="table">
-    <tr>
-        <th>@Html.DisplayNameFor(model => model.EnrollmentDate)</th>
-        <th>@Html.DisplayNameFor(model => model.StudentCount)</th>
-    </tr>
-@foreach (var item in Model)
-{
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItems => item.EnrollmentDate)
-        </td>
-        <td>
-            @item.StudentCount
-        </td>
-    </tr>
-}
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.EnrollmentDate)</th>
+            <th>@Html.DisplayNameFor(model => model.StudentCount)</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItems => item.EnrollmentDate)
+                </td>
+                <td>
+                    @item.StudentCount
+                </td>
+            </tr>
+        }
+    </tbody>
 </table>

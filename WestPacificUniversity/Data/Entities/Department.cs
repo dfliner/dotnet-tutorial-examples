@@ -12,7 +12,7 @@ public class Department
     public string Name { get; set; } = default!;
 
     [DataType(DataType.Currency)]
-    [Column(TypeName = "money")]
+    [Column(TypeName = "money")] // SQL data type for this column
     public decimal Budget { get; set; }
 
     [Display(Name = "Start Date")]
@@ -22,6 +22,7 @@ public class Department
     public int? InstructorId { get; set; }
 
     // Name for nav property doesn't have pair with its FK?
+    // By convention, it uses InstructorId as its FK
     public Instructor? Administrator { get; set; }
 
     [InverseProperty(nameof(Course.Department))]

@@ -18,37 +18,105 @@ public class InstructorsController : Controller
     // GET: Instructors
     public async Task<IActionResult> Index(int? id, int? courseId)
     {
+        // Note: If we are not doing eager loading here, EF by default will not load navigation properties,
+        // i.e., navigation properties are set to null till they are loaded.
+        var temp = await _context.Instructors
+            .ToListAsync();
+        /////////////////////////////////////////////////////////////////////
+
+        //ListOfInstructorsViewModel viewModel = await CreateIndexViewModelWithEargerLoading(id, courseId);
+        ListOfInstructorsViewModel viewModel = await CreateIndexViewModelWithExplicitLoading(id, courseId);
+
+        return View(viewModel);
+    }
+
+    private async Task<ListOfInstructorsViewModel> CreateIndexViewModelWithEargerLoading(int? id, int? courseId)
+    {
         var viewModel = new ListOfInstructorsViewModel();
+
         viewModel.Instructors = await _context.Instructors
-            .Include(i => i.OfficeAssignment)
-            .Include(i => i.CourseAssignments)
+            .Include(i => i.OfficeAssignment) // We always want to display office info for the instructors
+            .Include(i => i.CourseAssignments)! // Load courses and student enrollments for the courses
                 .ThenInclude(c => c.Course)
-                    .ThenInclude(c => c.Enrollments)
+                    .ThenInclude(c => c.Enrollments)!
                         .ThenInclude(e => e.Student)
-            .Include(i => i.CourseAssignments)
+            .Include(i => i.CourseAssignments)! // The second Include clause to load department infor for each course.
                 .ThenInclude(c => c.Course)
                     .ThenInclude(c => c.Department)
-            .AsNoTracking()
+            .AsNoTracking() // tracking vs. no-tracking
             .OrderBy(i => i.LastName)
             .ToListAsync();
 
+        // If an instructor is selected, we want to display the courses the instructor teaches.
         if (id != null)
         {
             ViewData["InstructorId"] = id.Value;
-            Instructor instructor = viewModel.Instructors.Where(
-                i => i.Id == id.Value).Single();
-            viewModel.Courses = instructor.CourseAssignments.Select(s => s.Course).ToList();
+            Instructor selectedInstructor = viewModel.Instructors
+                .Where(i => i.Id == id.Value)
+                .Single();
+            viewModel.Courses = selectedInstructor.CourseAssignments?
+                .Select(s => s.Course).ToList();
         }
 
+        // If a course is selected, we want to display the students enrolling in this course.
         if (courseId != null)
         {
             ViewData["CourseId"] = courseId.Value;
-            viewModel.Enrollments = viewModel.Courses.Where(
-                x => x.CourseId == courseId.Value).Single().Enrollments.ToList();
+            var selectedCourse = viewModel.Courses!
+                .Where(x => x.CourseId == courseId.Value)
+                .Single();
+            viewModel.Enrollments = selectedCourse!.Enrollments?.ToList();
         }
 
-          return View(viewModel);
+        return viewModel;
     }
+
+    private async Task<ListOfInstructorsViewModel> CreateIndexViewModelWithExplicitLoading(int? id, int? courseId)
+    {
+        var viewModel = new ListOfInstructorsViewModel();
+
+        viewModel.Instructors = await _context.Instructors
+            .Include(i => i.OfficeAssignment)
+            .OrderBy(i => i.LastName)
+            .ToListAsync();
+
+        // If an instructor is selected, we want to display the courses the instructor teaches.
+        if (id != null)
+        {
+            ViewData["InstructorId"] = id.Value;
+            Instructor selectedInstructor = viewModel.Instructors
+                .Where(i => i.Id == id.Value)
+                .Single();
+
+            // Explicitly load courses associated with the selected instructor
+            await _context.Entry(selectedInstructor).Collection(i => i.CourseAssignments).LoadAsync();
+            foreach (CourseAssignment courseAssign in selectedInstructor.CourseAssignments)
+            {
+                await _context.Entry(courseAssign).Reference(c => c.Course).LoadAsync();
+                await _context.Entry(courseAssign.Course).Reference(c => c.Department).LoadAsync();
+            }
+            viewModel.Courses = selectedInstructor.CourseAssignments.Select(s => s.Course).ToList();
+        }
+
+        // If a course is selected, we want to display the students enrolling in this course.
+        if (courseId != null)
+        {
+            ViewData["CourseId"] = courseId.Value;
+            var selectedCourse = viewModel.Courses!
+                .Where(x => x.CourseId == courseId.Value)
+                .Single();
+
+            await _context.Entry(selectedCourse).Collection(x => x.Enrollments).LoadAsync();
+            foreach (Enrollment enrollment in selectedCourse.Enrollments)
+            {
+                await _context.Entry(enrollment).Reference(x => x.Student).LoadAsync();
+            }
+            viewModel.Enrollments = selectedCourse.Enrollments.ToList();
+        }
+
+        return viewModel;
+    }
+
 
     // GET: Instructors/Details/5
     public async Task<IActionResult> Details(int? id)

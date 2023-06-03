@@ -30,7 +30,7 @@ public class CoursesController : Controller
         sortOrder = sortOrder?.ToLowerInvariant();
         searchString = searchString ?? currentFilter;
 
-        var departments = _context.Departments.Distinct().Select(d => new { d.Id, d.Name }).AsNoTracking();
+        var departments = _context.Departments.Select(d => new { d.Id, d.Name }).AsNoTracking();
         var VM = new ListOfCoursesViewModel
         {
             CurrentSort = sortOrder,
@@ -39,8 +39,9 @@ public class CoursesController : Controller
             Departments = new SelectList(await departments.ToListAsync(), "Id", "Name", departmentId),
         };
 
-        searchString = searchString ?? currentFilter;
+        searchString ??= currentFilter;
 
+        // Construct query based on filters
         IQueryable<Course> courses = _context.Courses.Include(c => c.Department);
         if (departmentId.HasValue)
         {
@@ -51,6 +52,7 @@ public class CoursesController : Controller
         {
             courses = courses.Where(c => c.Title.Contains(searchString));
         }
+
         VM.Courses = await PaginatedList<Course>.CreateAsync(
             courses.AsNoTracking(),
             pageNumber ?? 1,
@@ -69,6 +71,8 @@ public class CoursesController : Controller
 
         var course = await _context.Courses
             .Include(c => c.Department)
+                // We are not using department's administrator, thus populating isn't needed.
+                //.ThenInclude(d => d.Administrator)
             .AsNoTracking()
             .FirstOrDefaultAsync(m => m.CourseId == id);
         if (course == null)
@@ -104,7 +108,7 @@ public class CoursesController : Controller
     }
 
     // GET: Courses/Edit/5
-    public async Task<IActionResult> Edit(int? id)
+    public async Task<IActionResult> EditAsync(int? id)
     {
         if (id == null || _context.Courses == null)
         {
@@ -158,7 +162,7 @@ public class CoursesController : Controller
 
     [HttpPost, ActionName("Edit")]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> EditPost(int? id)
+    public async Task<IActionResult> EditPostAsync(int? id)
     {
         if (id == null)
         {
@@ -235,8 +239,12 @@ public class CoursesController : Controller
         var departmentsQuery = from d in _context.Departments
                                orderby d.Name
                                select d;
-        //var query = _context.Departments.OrderBy(d => d.Name);
+        // var query = _context.Departments.OrderBy(d => d.Name);
 
-        ViewBag.DepartmentId = new SelectList(departmentsQuery.AsNoTracking(), nameof(Department.Id), nameof(Department.Name), selectedDepartment);
+        ViewBag.DepartmentId = new SelectList(
+            departmentsQuery.AsNoTracking(),
+            nameof(Department.Id),
+            nameof(Department.Name),
+            selectedDepartment);
     }
 }

@@ -6,12 +6,12 @@ namespace WestPacificUniversity.Models;
 
 public class ListOfCoursesViewModel
 {
-    public PaginatedList<Course>? Courses { get; set; }
+    public PaginatedList<Course> Courses { get; set; } = default!;
 
     public SelectList? Departments { get; set; }
     public int? DepartmentId { get; set; }
 
     public string? CurrentFilter { get; set; }
 
-    public string CurrentSort { get; set; } = "";
+    public string? CurrentSort { get; set; }
 }

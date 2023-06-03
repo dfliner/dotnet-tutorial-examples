@@ -17,8 +17,12 @@ if (builder.Environment.IsDevelopment())
 }
 
 // Add services to the container.
-builder.Services.AddControllersWithViews();
-    //.AddRazorRuntimeCompilation(); // Runtime optimization breaks "scoped CSS isolation" introduced in .NET6.0
+builder.Services.AddControllersWithViews()
+    // Runtime optimization breaks "scoped CSS isolation" introduced in .NET6.0
+    // https://github.com/dotnet/aspnetcore/issues/33446
+    // To mitigate the issue, we use style sections for page-scoped styles,
+    // and also move content of _layout.cshtml.css to the site.css.
+    .AddRazorRuntimeCompilation(); 
 
 var app = builder.Build();
 

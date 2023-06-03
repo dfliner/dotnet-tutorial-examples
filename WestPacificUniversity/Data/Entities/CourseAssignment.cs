@@ -2,6 +2,8 @@
 
 public class CourseAssignment
 {
+    // Composite primary key is specified in context
+
     public int InstructorId { get; set; }
     public int CourseId { get; set; }
 

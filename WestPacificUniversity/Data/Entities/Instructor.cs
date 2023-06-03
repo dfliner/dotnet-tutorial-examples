@@ -24,5 +24,12 @@ public class Instructor
     // Pros and cons for not using an explicit FK?
     public OfficeAssignment? OfficeAssignment { get; set; }
 
+    /// <summary>
+    /// Many-to-Many relationship can also mapped by convention, which by default create the join table transparently.
+    /// <para>
+    /// The <see cref="CourseAssignment"/> isn't needed if we go by convention.
+    /// Refer to <seealso href="https://learn.microsoft.com/en-us/ef/core/modeling/relationships/many-to-many"/>. 
+    /// </para>
+    /// </summary>
     public ICollection<CourseAssignment>? CourseAssignments { get; set; }
 }
