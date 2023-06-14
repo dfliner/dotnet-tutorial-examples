@@ -9,12 +9,12 @@ public interface IScopedService : IReportServiceLifetime
 
 internal sealed class ScopedService : IScopedService
 {
-    private readonly Guid _id;
+    private readonly Guid id;
 
     public ScopedService()
     {
-        _id = Guid.NewGuid();
+        id = Guid.NewGuid();
     }
 
-    public Guid Id => _id;
+    public Guid Id => id;
 }

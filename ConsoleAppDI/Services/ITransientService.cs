@@ -9,11 +9,11 @@ public interface ITransientService : IReportServiceLifetime
 
 internal sealed class TransientService : ITransientService
 {
-    private readonly Guid _id;
+    private readonly Guid id;
 
     public TransientService()
     {
-        _id = Guid.NewGuid();
+        id = Guid.NewGuid();
     }
-    public Guid Id => _id;
+    public Guid Id => id;
 }

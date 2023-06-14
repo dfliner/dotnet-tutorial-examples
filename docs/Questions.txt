@@ -1,0 +1,5 @@
+1. client-side validation vs. server-side validation
+
+2. same app in github.com repo (dotnet docs): https://github.com/dotnet/AspNetCore.Docs/tree/main/aspnetcore/data/ef-mvc/intro/samples/cu-final
+
+3. Load related data (eager/explicit/lazy loading)

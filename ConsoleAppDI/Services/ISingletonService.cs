@@ -9,11 +9,11 @@ public interface ISingletonService : IReportServiceLifetime
 
 internal sealed class SingletonService : ISingletonService
 {
-    private readonly Guid _id;
+    private readonly Guid id;
 
     public SingletonService()
     {
-        _id = Guid.NewGuid();
+        id = Guid.NewGuid();
     }
-    public Guid Id => _id;
+    public Guid Id => id;
 }
