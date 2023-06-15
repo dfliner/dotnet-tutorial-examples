@@ -2,6 +2,7 @@
 // https://learn.microsoft.com/en-us/dotnet/core/extensions/generic-host
 // https://learn.microsoft.com/en-us/dotnet/core/extensions/dependency-injection-usage
 // https://learn.microsoft.com/en-us/dotnet/core/extensions/logging
+// https://learn.microsoft.com/en-us/aspnet/core/fundamentals/logging
 // https://learn.microsoft.com/en-us/dotnet/core/extensions/configuration
 
 

@@ -15,6 +15,7 @@ public sealed class BackgroundWorker : BackgroundService
         this.logger = logger;
     }
 
+    // https://www.c-sharpcorner.com/article/implement-background-task-using-backgrounservice-class-in-asp-net-core/
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
         stoppingToken.ThrowIfCancellationRequested();
