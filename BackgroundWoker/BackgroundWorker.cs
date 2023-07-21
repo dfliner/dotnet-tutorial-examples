@@ -18,10 +18,11 @@ public sealed class BackgroundWorker : BackgroundService
     // https://www.c-sharpcorner.com/article/implement-background-task-using-backgrounservice-class-in-asp-net-core/
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
-        stoppingToken.ThrowIfCancellationRequested();
 
-        while (!stoppingToken.IsCancellationRequested)
+        while (true)
         {
+            stoppingToken.ThrowIfCancellationRequested();
+
             logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
             await Task.Delay(1000, stoppingToken);
         }

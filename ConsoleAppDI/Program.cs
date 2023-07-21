@@ -13,9 +13,6 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
 
-Console.WriteLine("Hello World!");
-
-
 
 // App host provides the following functionality:
 // 1. IoC/DI
@@ -37,10 +34,17 @@ using IHost host = Host.CreateDefaultBuilder(args)
         services.AddTransient<ServiceLifetimeReporter>();
 
         services.AddHostedService<BackgroundWorker>();
+
+        // Requires Microsoft.Extensions.Http package
+        services.AddHttpClient();
+        services.AddSingleton<IWeatherService, WeatherService>();
     })
     .Build();
 
 var logger = host.Services.GetRequiredService<ILogger<IHost>>();
+
+var weatherService = host.Services.GetRequiredService<IWeatherService>();
+var json = await weatherService.GetWeatherServiceMetadataAsync();
 
 // Control over app startup and shutdown
 // For demo purpose only
