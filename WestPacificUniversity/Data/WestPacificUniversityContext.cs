@@ -1,5 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata;
+using System.Diagnostics;
+using System.Linq.Expressions;
+using System.Reflection;
 using WestPacificUniversity.Data.Entities;
+using WestPacificUniversity.EFCore.Entities;
 
 namespace WestPacificUniversity.Data;
 
@@ -44,5 +49,53 @@ public class WestPacificUniversityContext : DbContext
 
         //modelBuilder.Entity<Enrollment>()
         //    .HasIndex(e => new { e.StudentId, e.CourseId });
+
+        ConfigureFilters(modelBuilder);
+    }
+
+    protected virtual void ConfigureFilters(ModelBuilder modelBuilder)
+    {
+        foreach (var entityType in modelBuilder.Model.GetEntityTypes())
+        {
+            ConfigureFiltersMethodInfo
+                .MakeGenericMethod(entityType.ClrType)
+                .Invoke(null, new object[] { modelBuilder, entityType! });
+        }
+    }
+
+    private static MethodInfo ConfigureFiltersMethodInfo => GetGenericConfigureFiltersMethodInfo()!;
+
+    private static MethodInfo? GetGenericConfigureFiltersMethodInfo()
+    {
+        return
+            typeof(WestPacificUniversityContext).GetMethod(
+                nameof(ConfigureFilters),
+                1,
+                BindingFlags.Static | BindingFlags.NonPublic,
+                null,
+                new[] { typeof(ModelBuilder), typeof(IMutableEntityType) },
+                null
+            );
+    }
+
+    private static void ConfigureFilters<TEntity>(ModelBuilder modelBuilder, IMutableEntityType entityType)
+        where TEntity : class
+    {
+        Debug.Assert(typeof(TEntity) == entityType.ClrType);
+
+        Expression<Func<TEntity, bool>>? filterExpression = null;
+        if (typeof(TEntity).IsAssignableTo(typeof(ISoftDelete)))
+        {
+            modelBuilder.Entity<TEntity>()
+                .Property(e => ((ISoftDelete)e).IsDeleted)
+                .HasDefaultValue(false);
+
+            filterExpression = entity => !((ISoftDelete)entity).IsDeleted;
+        }
+
+        if (filterExpression != null)
+        {
+            modelBuilder.Entity<TEntity>().HasQueryFilter(filterExpression);
+        }
     }
 }
