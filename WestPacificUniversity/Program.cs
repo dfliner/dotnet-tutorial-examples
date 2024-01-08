@@ -1,8 +1,18 @@
+using Autofac;
+using Autofac.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using WestPacificUniversity.Data;
+using WestPacificUniversity.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Host
+    .UseServiceProviderFactory(new AutofacServiceProviderFactory())
+    .ConfigureContainer<ContainerBuilder>(container =>
+    {
+        container.RegisterModule(new ApplicationModule());
+    });
 
 // DbContext is registered to DI container as a scoped service (aligned with HTTP request lifetime)
 builder.Services.AddDbContext<WestPacificUniversityContext>(options =>
